@@ -78,6 +78,7 @@
 
     isClicking = isMouseOver;
   });
+
   addEventListener("touchstart", (e) => {
     if (isGameOver) return;
 
@@ -90,6 +91,7 @@
 
     isClicking = false;
   });
+
   addEventListener("touchend", () => {
     if (isGameOver) return;
 
@@ -136,7 +138,7 @@
         category: 1,
         mask: -1,
       };
-      Body.setVelocity(ball, { x: 0, y: (100 / fps) * 5.5 });
+      Body.setVelocity(ball, { x: 0, y: (100 / fps) * 6 });
       ball = null;
 
       newSize = Math.ceil(Math.random() * 3);
@@ -150,8 +152,10 @@
   });
 
   canvas.addEventListener("mouseout", () => {
-    isMouseOver = false;
-  });
+    if (!isClicking) {
+      isMouseOver = false;
+    }
+  }); //  외부에서도 클릭 가능하게
 
   Events.on(engine, "beforeUpdate", () => {
     if (isGameOver) return;
@@ -164,11 +168,14 @@
       });
 
       if (isClicking && mousePos !== undefined) {
-        ball.position.x = mousePos;
 
-        if (mousePos > 455) ball.position.x = 455;
-        else if (mousePos < 25) ball.position.x = 25;
-      }
+        const maxPositionX = 478 - ball.circleRadius;
+        const minPositionX = 2 + ball.circleRadius;
+
+        if (mousePos > maxPositionX) ball.position.x = maxPositionX;
+        else if (mousePos < minPositionX) ball.position.x = minPositionX;
+        else ball.position.x = mousePos;
+      } //  여기가 마우스크기 조절하는덴가?
 
       ball.position.y = 50;
     }
@@ -260,6 +267,20 @@
         ctx.lineTo(480, 100);
         ctx.stroke();
       }
+
+      // // 점선의 시작 위치
+      // const startX = ball.position.x;
+      // const startY = ball.position.y + ball.circleRadius;
+
+      // // 점선의 끝 위치
+      // const endX = ball.position.x;
+      // const endY = 720; // 끝 위치의 y 좌표를 원하는 값으로 설정하세요
+
+      // ctx.strokeStyle = "#fff";
+      // ctx.beginPath();
+      // ctx.moveTo(startX, startY);
+      // ctx.lineTo(endX, endY);
+      // ctx.stroke();
     }
   });
 
@@ -283,10 +304,9 @@
       parent.style.zoom = window.innerWidth / 480;
       parent.style.top = "0px";
 
-      floor.style.height = `${
-        (window.innerHeight - canvas.height * parent.style.zoom) /
+      floor.style.height = `${(window.innerHeight - canvas.height * parent.style.zoom) /
         parent.style.zoom
-      }px`;
+        }px`;
     } else {
       parent.style.zoom = window.innerHeight / 720 / 1.3;
       parent.style.top = `${(canvas.height * parent.style.zoom) / 15}px`;
@@ -361,7 +381,7 @@
     c.size = size;
     c.createdAt = Date.now();
     c.restitution = 0.3;
-    c.friction = 0.1;
+    c.friction = 0.6;
 
     return c;
   }

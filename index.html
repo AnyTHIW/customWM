@@ -7,18 +7,22 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
 
-    <link href="index.css" rel="stylesheet" />
+    <!-- index.css 파일연결 -->
+    <link href="index.css" rel="stylesheet" />  
     <link
       rel="stylesheet"
       as="style"
       crossorigin
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css"
-    />
+    />  
+    <!-- 외부 호스팅 css연결 -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
-    <title>Watermelon</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script><!-- Matter.js 라이브러리 연결 --> 
 
+    <title>수박</title>
+
+    <!--Open Graph 메타 태그. 웹 페이지가 소셜 미디어에서 공유될 때 사용. 제목, 설명, 이미지 등을 지정. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="watermelon" />
     <meta property="og:title" content="watermelon" />
@@ -26,6 +30,7 @@
     <meta property="og:image" content="assets/img/10.png" />
     <meta property="og:image:type" content="image/png" />
 
+    <!--파비콘 -->
     <link rel="icon shortcut" href="assets/img/10.png" type="image/x-icon" />
   </head>
 
@@ -39,23 +44,24 @@
             Play Again
           </button>
         </div>
-        <canvas id="canvas"></canvas>
+        <canvas id="canvas"></canvas><!-- 게임 캔버스 엘리먼트 -->
         <div id="floor"></div>
       </div>
 
       <div class="empty"></div>
       <div class="empty"></div>
 
-      <div class="item" id="footer">
+      <div class="item" id="footer"><!-- 푸터. 사이트 정보와 링크를 포함. -->
+        <p>Modified by Dtt</p>
         <div id="links">
           <a href="https://shinyou.ng">shinyoung</a>
           <a href="https://github.com/choshinyoung/watermelon">Github</a>
         </div>
-
         <p>Made with ❤️ by choshinyoung</p>
       </div>
     </div>
 
     <script defer src="index.js"></script>
+
   </body>
 </html>
