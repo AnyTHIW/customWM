@@ -1,4 +1,23 @@
 (() => {
+  const nickNameList = ["KDD", "MNN"];  //  디렉토리 형식 변경시 수정요망
+
+  function loadFolderName() {
+    let folderName = prompt("닉네임 코드를 입력하세요:");
+
+    if (folderName !== null) {
+      const index = nickNameList.indexOf(folderName);
+      if (index !== -1) {
+        return folderName; // 일치하는 값이 발견되면 반환
+      }
+      else {
+        alert("일치하는 코드가 없습니다:");
+      }
+    }
+
+    // 취소 버튼을 눌렀거나 일치하는 값이 없는 경우 기본값 "img" 반환
+    return "img";
+  }
+
   const Engine = Matter.Engine,
     Render = Matter.Render,
     World = Matter.World,
@@ -61,6 +80,8 @@
     render: { fillStyle: "transparent" },
   });
   World.add(engine.world, [wallLeft, wallRight, ground, background]);
+
+  const code = loadFolderName();
 
   Engine.run(engine);
   Render.run(render);
@@ -372,7 +393,7 @@
     c = Bodies.circle(x, y, size * 10, {
       render: {
         sprite: {
-          texture: `assets/img/${size}.png`,
+          texture: `assets/${code}/${size}.png`,
           xScale: size / 12.75,
           yScale: size / 12.75,
         },
